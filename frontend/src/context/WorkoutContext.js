@@ -15,7 +15,12 @@ export const workoutsReducer = (state, action) => {
                 //previously included workouts using prev state
                 workouts: [action.payload, ...state.workouts]
             }
-        default: 
+
+        case 'DELETE_WORKOUT':
+            return {
+                workouts: state.workouts.filter((w) => w._id !== action.payload._id)
+            }
+        default:
             return state
     }
 }
@@ -26,8 +31,8 @@ export const WorkoutsContextProvider = ({ children }) => { //children reps App c
     })
 
     return (
-        <WorkoutsContext.Provider value={ {...state, dispatch} }>
-            { children }
+        <WorkoutsContext.Provider value={{ ...state, dispatch }}>
+            {children}
         </WorkoutsContext.Provider>
     )
 }
